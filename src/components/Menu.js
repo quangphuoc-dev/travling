@@ -1,7 +1,9 @@
-
+import { Link } from 'react-router-dom';
 
 function Menu(props){
     const {href,label}=props;
-    return <a href={href}>{label}</a>;
+    return <Link 
+                to={href}
+                href={href}>{label}</Link>;
 }
 export default Menu;
