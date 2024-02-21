@@ -1,9 +1,14 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Menu(props){
     const {href,label}=props;
-    return <Link 
+    return <NavLink 
                 to={href}
-                href={href}>{label}</Link>;
+                className={({ isActive }) =>
+				    isActive ? 'font-bold text-[#FA8443]' : ''
+			    }
+		    >
+			    {label}
+            </NavLink>;
 }
 export default Menu;
