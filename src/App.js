@@ -12,17 +12,16 @@ import Layout from './components/Layout';
 import AuthLayout from './components/AuthLayout';
 
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { createContext } from 'react';
-
-export const ThemeContext = createContext('light');
+import Admin from './pages/Admin';
+import Posts from './pages/Posts';
+import PostCreate from './pages/PostCreate';
+import PostEdit from './pages/PostEdit';
+import { Provider } from 'react-redux';
+import store from './stores/store';
 
 export default function App() {
-	const [theme, setTheme] = useState('light');
-	const [email, setUserEmail] = useState(null);
-	const contextValue = { theme, setTheme, email, setUserEmail };
-
 	return (
-		<ThemeContext.Provider value={contextValue}>
+		<Provider store={store}>
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Layout />}>
@@ -34,6 +33,17 @@ export default function App() {
 							element={<ProductDetail />}
 						/>
 						<Route path="about-us" element={<AboutUs />} />
+						<Route path="admin" element={<Admin />}>
+							<Route path="posts" element={<Posts />} />
+							<Route
+								path="posts/create"
+								element={<PostCreate />}
+							/>
+							<Route
+								path="posts/edit/:postId"
+								element={<PostEdit />}
+							/>
+						</Route>
 
 						<Route element={<AuthLayout />}>
 							<Route path="login" element={<Login />} />
@@ -42,6 +52,6 @@ export default function App() {
 					</Route>
 				</Routes>
 			</BrowserRouter>
-		</ThemeContext.Provider>
+		</Provider>
 	);
 }

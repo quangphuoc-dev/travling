@@ -1,12 +1,10 @@
+import { connect } from 'react-redux';
 import Logo from '../assets/images/logo.png';
 import Menu from './Menu';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { ThemeContext } from '../App';
 
-function Header() {
-	const { email } = useContext(ThemeContext);
-
+function Header({ email }) {
+	console.log('email', email);
 	return (
 		<header
 			className={
@@ -20,6 +18,7 @@ function Header() {
 				<Menu href="/product" label="Product" />
 				<Menu href="/contact" label="Contact" />
 				<Menu href="/about-us" label="About Us" />
+				{email && <Menu href="/admin/posts" label="Admin" />}
 			</div>
 
 			{!!email ? (
@@ -36,5 +35,8 @@ function Header() {
 	);
 }
 
+const mapStateToProps = (store) => ({
+	email: store.user.email,
+});
 
-export default Header;
+export default connect(mapStateToProps)(Header);
